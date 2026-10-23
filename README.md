@@ -4,7 +4,7 @@
 
 An agent skill + zero-dependency CLI that detects and de-slops AI-flavored Chinese writing. 
 
-[![tests](https://img.shields.io/badge/tests-passing-brightgreen)]() [![python](https://img.shields.io/badge/python-3.8%2B-blue)]() [![deps](https://img.shields.io/badge/dependencies-0-success)]() [![license](https://img.shields.io/badge/license-MIT-black)]()
+[![tests](https://github.com/rancy-1229/shuo-renhua/actions/workflows/tests.yml/badge.svg)](https://github.com/rancy-1229/shuo-renhua/actions/workflows/tests.yml) [![python](https://img.shields.io/badge/python-3.8%2B-blue)]() [![deps](https://img.shields.io/badge/dependencies-0-success)]() [![license](https://img.shields.io/badge/license-MIT-black)]()
 
 ---
 
@@ -39,7 +39,7 @@ An agent skill + zero-dependency CLI that detects and de-slops AI-flavored Chine
 **给 agent 装（Claude Code / Codex / pi / Cursor 通用）：**
 
 ```bash
-git clone https://github.com/<you>/shuo-renhua && cd shuo-renhua && ./install.sh
+git clone https://github.com/rancy-1229/shuo-renhua && cd shuo-renhua && ./install.sh
 ```
 
 装完对 agent 说：「用说人话 skill 改一下这篇文章」即可。
