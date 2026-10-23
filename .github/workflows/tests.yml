@@ -1,0 +1,13 @@
+name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python3 tests/test_detector.py
+      - run: python3 renhua check tests/samples/bad_sample.md
+      - run: python3 renhua rules | head -5
