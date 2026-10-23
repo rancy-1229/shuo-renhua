@@ -99,13 +99,20 @@ def strip_code_blocks(text):
     return re.sub(r"`[^`\n]+`", lambda m: re.sub(r"\S", " ", m.group(0)), text)  # 行内代码
 
 
+def strip_quotes(text):
+    """把 > 引用块换成等长空白。写讨论型文章（引用坏例）时用 --strip-quotes 豁免。"""
+    return re.sub(r"^\s*>.*$", lambda m: re.sub(r"\S", " ", m.group(0)), text, flags=re.MULTILINE)
+
+
 def _line_of_offset(text, offset):
     return text.count("\n", 0, offset) + 1
 
 
-def analyze(text, rules, skip_code=True):
+def analyze(text, rules, skip_code=True, skip_quotes=False):
     if skip_code:
         text = strip_code_blocks(text)
+    if skip_quotes:
+        text = strip_quotes(text)
     hits = []
     for rule in rules:
         found = []
@@ -147,11 +154,11 @@ def _grade(score):
 SEV_MARK = {3: "!!!", 2: " !!", 1: "  ~"}
 
 
-def report(path, as_json=False, with_fix=False):
+def report(path, as_json=False, with_fix=False, strip_quotes=False):
     with open(path, encoding="utf-8") as f:
         text = f.read()
     rules = load_rules()
-    score, hits, n_chars = analyze(text, rules)
+    score, hits, n_chars = analyze(text, rules, skip_quotes=strip_quotes)
     hits.sort(key=lambda h: (-h["severity"], -h["hits"]))
 
     if as_json:
@@ -202,7 +209,8 @@ def main(argv):
         return 2
     as_json = "--json" in argv
     with_fix = "--fix-hints" in argv
-    print(report(path, as_json, with_fix))
+    strip_q = "--strip-quotes" in argv
+    print(report(path, as_json, with_fix, strip_q))
     return 0
 
 
